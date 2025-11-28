@@ -199,13 +199,13 @@ export default function BillSplitter() {
                 <div>
                   <p className="text-sm text-gray-600 mb-1">Total Amount</p>
                   <p className="text-3xl font-bold text-gray-900">
-                    ₹{total.toFixed(2)}
+                    Rs.{total.toFixed(2)}
                   </p>
                 </div>
                 <div>
                   <p className="text-sm text-gray-600 mb-1">Per Person</p>
                   <p className="text-3xl font-bold text-gray-900">
-                    ₹{perPerson.toFixed(2)}
+                    Rs.{perPerson.toFixed(2)}
                   </p>
                 </div>
               </div>
@@ -227,7 +227,7 @@ export default function BillSplitter() {
                     </span>
                     <div className="text-right">
                       <p className="text-sm text-gray-600">
-                        Paid: ₹{member.amount}
+                        Paid: Rs.{member.amount}
                       </p>
                       <p
                         className={`text-sm font-medium ${
@@ -235,8 +235,8 @@ export default function BillSplitter() {
                         }`}
                       >
                         {balance >= 0
-                          ? `Gets back: ₹${balance.toFixed(2)}`
-                          : `Owes: ₹${Math.abs(balance).toFixed(2)}`}
+                          ? `Gets back: Rs.${balance.toFixed(2)}`
+                          : `Owes: Rs.${Math.abs(balance).toFixed(2)}`}
                       </p>
                     </div>
                   </div>
@@ -259,7 +259,7 @@ export default function BillSplitter() {
                         <span className="font-semibold">{settlement.from}</span>
                         <span className="text-gray-600 mx-2">pays</span>
                         <span className="font-bold text-orange-600">
-                          ₹{settlement.amount}
+                          Rs.{settlement.amount}
                         </span>
                         <span className="text-gray-600 mx-2">to</span>
                         <span className="font-semibold">{settlement.to}</span>
@@ -307,13 +307,13 @@ export default function BillSplitter() {
               <div>
                 <p className="text-sm text-gray-600 mb-1">Total Expenses</p>
                 <p className="text-2xl font-bold text-gray-900">
-                  ₹{expensesTotal.toFixed(2)}
+                  Rs.{expensesTotal.toFixed(2)}
                 </p>
               </div>
               <div>
                 <p className="text-sm text-gray-600 mb-1">Total Paid</p>
                 <p className="text-2xl font-bold text-gray-900">
-                  ₹{membersTotal.toFixed(2)}
+                  Rs.{membersTotal.toFixed(2)}
                 </p>
               </div>
               <div className="col-span-2 md:col-span-1">
@@ -325,7 +325,7 @@ export default function BillSplitter() {
                       : "text-red-600"
                   }`}
                 >
-                  {difference >= 0 ? "+" : ""}₹{difference.toFixed(2)}
+                  {difference >= 0 ? "+" : ""}Rs.{difference.toFixed(2)}
                 </p>
               </div>
             </div>
