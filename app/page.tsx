@@ -1,12 +1,14 @@
-import React, { useState } from "react";
+"use client";
 import {
-  Trash2,
-  Plus,
-  Users,
-  Calculator,
   ArrowLeft,
+  Calculator,
+  NewspaperIcon,
+  Plus,
   ShoppingCart,
+  Trash2,
+  Users,
 } from "lucide-react";
+import React, { useState } from "react";
 
 interface Expense {
   id: string;
@@ -179,12 +181,29 @@ export default function BillSplitter() {
 
   const handleCalculate = () => {
     if (canCalculate()) {
+      // Save to localStorage before showing report
+      localStorage.setItem("billSplitter_expenses", JSON.stringify(expenses));
+      localStorage.setItem("billSplitter_members", JSON.stringify(members));
       setShowReport(true);
     }
   };
 
   const handleBack = () => {
     setShowReport(false);
+  };
+
+  const handleClearRecord = () => {
+    if (
+      confirm(
+        "Are you sure you want to clear all data? This action cannot be undone."
+      )
+    ) {
+      localStorage.removeItem("billSplitter_expenses");
+      localStorage.removeItem("billSplitter_members");
+      setExpenses([{ id: "1", name: "", price: 0, units: 1 }]);
+      setMembers([{ id: "1", name: "", amount: 0 }]);
+      setShowReport(false);
+    }
   };
 
   if (showReport) {
@@ -535,6 +554,14 @@ export default function BillSplitter() {
               </button>
             </div>
           )}
+
+          <button
+            onClick={handleClearRecord}
+            className="w-full flex items-center justify-center gap-2 px-6 py-3 bg-gray-100 hover:bg-gray-200 text-gray-900 font-medium rounded-lg transition"
+          >
+            <NewspaperIcon className="w-5 h-5" />
+            New Data
+          </button>
 
           {/* Calculate Button */}
           <div className="mt-6">
