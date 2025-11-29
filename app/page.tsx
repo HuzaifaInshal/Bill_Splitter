@@ -1,4 +1,3 @@
-"use client";
 import React, { useState } from "react";
 import {
   Trash2,
@@ -32,13 +31,35 @@ export default function BillSplitter() {
   const [activeTab, setActiveTab] = useState<"expenses" | "members">(
     "expenses"
   );
-  const [expenses, setExpenses] = useState<Expense[]>([
-    { id: "1", name: "", price: 0, units: 1 },
-  ]);
-  const [members, setMembers] = useState<Member[]>([
-    { id: "1", name: "", amount: 0 },
-  ]);
+  const [expenses, setExpenses] = useState<Expense[]>([]);
+  const [members, setMembers] = useState<Member[]>([]);
   const [showReport, setShowReport] = useState(false);
+  const [isLoaded, setIsLoaded] = useState(false);
+
+  // Load data from localStorage on mount
+  React.useEffect(() => {
+    const savedExpenses = localStorage.getItem("billSplitter_expenses");
+    const savedMembers = localStorage.getItem("billSplitter_members");
+
+    if (savedExpenses) {
+      setExpenses(JSON.parse(savedExpenses));
+    } else {
+      setExpenses([{ id: "1", name: "", price: 0, units: 1 }]);
+    }
+
+    if (savedMembers) {
+      setMembers(JSON.parse(savedMembers));
+    } else {
+      setMembers([{ id: "1", name: "", amount: 0 }]);
+    }
+
+    setIsLoaded(true);
+  }, []);
+
+  // Don't render until data is loaded
+  if (!isLoaded) {
+    return null;
+  }
 
   // Expense functions
   const addExpense = () => {
@@ -199,13 +220,13 @@ export default function BillSplitter() {
                 <div>
                   <p className="text-sm text-gray-600 mb-1">Total Amount</p>
                   <p className="text-3xl font-bold text-gray-900">
-                    Rs.{total.toFixed(2)}
+                    ₹{total.toFixed(2)}
                   </p>
                 </div>
                 <div>
                   <p className="text-sm text-gray-600 mb-1">Per Person</p>
                   <p className="text-3xl font-bold text-gray-900">
-                    Rs.{perPerson.toFixed(2)}
+                    ₹{perPerson.toFixed(2)}
                   </p>
                 </div>
               </div>
@@ -227,7 +248,7 @@ export default function BillSplitter() {
                     </span>
                     <div className="text-right">
                       <p className="text-sm text-gray-600">
-                        Paid: Rs.{member.amount}
+                        Paid: ₹{member.amount}
                       </p>
                       <p
                         className={`text-sm font-medium ${
@@ -235,8 +256,8 @@ export default function BillSplitter() {
                         }`}
                       >
                         {balance >= 0
-                          ? `Gets back: Rs.${balance.toFixed(2)}`
-                          : `Owes: Rs.${Math.abs(balance).toFixed(2)}`}
+                          ? `Gets back: ₹${balance.toFixed(2)}`
+                          : `Owes: ₹${Math.abs(balance).toFixed(2)}`}
                       </p>
                     </div>
                   </div>
@@ -259,7 +280,7 @@ export default function BillSplitter() {
                         <span className="font-semibold">{settlement.from}</span>
                         <span className="text-gray-600 mx-2">pays</span>
                         <span className="font-bold text-orange-600">
-                          Rs.{settlement.amount}
+                          ₹{settlement.amount}
                         </span>
                         <span className="text-gray-600 mx-2">to</span>
                         <span className="font-semibold">{settlement.to}</span>
@@ -307,13 +328,13 @@ export default function BillSplitter() {
               <div>
                 <p className="text-sm text-gray-600 mb-1">Total Expenses</p>
                 <p className="text-2xl font-bold text-gray-900">
-                  Rs.{expensesTotal.toFixed(2)}
+                  ₹{expensesTotal.toFixed(2)}
                 </p>
               </div>
               <div>
                 <p className="text-sm text-gray-600 mb-1">Total Paid</p>
                 <p className="text-2xl font-bold text-gray-900">
-                  Rs.{membersTotal.toFixed(2)}
+                  ₹{membersTotal.toFixed(2)}
                 </p>
               </div>
               <div className="col-span-2 md:col-span-1">
@@ -325,7 +346,7 @@ export default function BillSplitter() {
                       : "text-red-600"
                   }`}
                 >
-                  {difference >= 0 ? "+" : ""}Rs.{difference.toFixed(2)}
+                  {difference >= 0 ? "+" : ""}₹{difference.toFixed(2)}
                 </p>
               </div>
             </div>
