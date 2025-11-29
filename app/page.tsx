@@ -557,7 +557,7 @@ export default function BillSplitter() {
 
           <button
             onClick={handleClearRecord}
-            className="w-full flex items-center justify-center gap-2 px-6 py-3 bg-gray-100 hover:bg-gray-200 text-gray-900 font-medium rounded-lg transition"
+            className="mt-6 w-full flex items-center justify-center gap-2 px-6 py-3 bg-gray-100 hover:bg-gray-200 text-gray-900 font-medium rounded-lg transition"
           >
             <NewspaperIcon className="w-5 h-5" />
             New Data
