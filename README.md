@@ -2,6 +2,10 @@
 
 A modern, intuitive web application built with Next.js and TypeScript for splitting expenses fairly among friends. Perfect for group dinners, trips, or any shared expenses.
 
+<p align="center">
+  <img src="./public/bill-splitter.png" alt="Bill Splitter Banner" />
+</p>
+
 ## Features
 
 ### 📊 Dual Tab System
